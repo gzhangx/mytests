@@ -6,7 +6,7 @@ server.use(restify.plugins.queryParser());
 server.get('/', (req, res, next)=>{
   res.header('content-type','text/html');
   res.contentType = 'text/html';
-  res.sendRaw('OK V1.0 <a href="/onoff/forwrd">foward</a><br>' +
+  res.sendRaw('OK V1.0 <a href="/onoff/forward">forward</a><br>' +
       '<a href="/onoff/left">left</a><br>' +
       '<a href="/onoff/right">right</a><br>' +
       '<a href="/onoff/stop">stop</a><br>');
@@ -15,5 +15,6 @@ server.get('/', (req, res, next)=>{
 
 server.get('/onoff/:what', (req,res,next)=>{
   res.send(req.params);
+  setState(req.params.what);
 });
 server.listen(8080, ()=>{});
