@@ -1,3 +1,10 @@
+if (process.env.NODE_ENV === 'dev'){
+    module.exports = {
+        setState: s => s
+    };
+    return;
+}
+
 const gon = require('./ngpio');
 
 const gleft = gon.createOutGpio(5);
@@ -18,6 +25,7 @@ const states = {
 
 let curState = states.stop;
 function drive() {
+
   setTimeout(drive, 1000);
   switch(curState) {
       case states.stop:

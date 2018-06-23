@@ -3,6 +3,14 @@ const restify = require('restify');
 const server = restify.createServer();
 const {states, setState} = require('./drive');
 server.use(restify.plugins.queryParser());
+server.use(
+    function crossOrigin(req,res,next){
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        return next();
+    }
+);
+
 server.get('/', (req, res, next)=>{
   res.header('content-type','text/html');
   res.contentType = 'text/html';
