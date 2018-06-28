@@ -3,8 +3,6 @@ const ips = require('./net');
 const server = restify.createServer();
 const {states, setState} = require('./drive');
 console.log(ips.getIPs());
-const myIp = (ips.getIPs()['en0'][0]);
-console.log(myIp);
 
 server.use(restify.plugins.queryParser());
 server.use(
