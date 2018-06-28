@@ -27,6 +27,8 @@ server.get('/onoff/:what', (req,res,next)=>{
   res.send(req.params);
   setState(req.params.what);
 });
+
+server.get(/#/public/?.*/, restify.serveStatic({directory:'./public'}));
 server.listen(8080, ()=>{});
 
 
