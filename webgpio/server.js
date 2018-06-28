@@ -13,7 +13,7 @@ server.use(
     }
 );
 
-server.get('/', (req, res, next)=>{
+server.get('/version', (req, res, next)=>{
   res.header('content-type','text/html');
   res.contentType = 'text/html';
   res.sendRaw('OK V1.0 <a href="/onoff/forward">forward</a><br>' +
@@ -28,7 +28,10 @@ server.get('/onoff/:what', (req,res,next)=>{
   setState(req.params.what);
 });
 
-server.get(/\/public\/?.*/, restify.serveStatic({directory:'./public'}));
+server.get('/*', restify.plugins.serveStatic({
+directory:`${__dirname}/public`,
+default:'index.html'
+}));
 server.listen(8080, ()=>{});
 
 
