@@ -5,3 +5,10 @@
     width: 400px;
     background-color: cornflowerblue;
 }
+
+.flex-outer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
