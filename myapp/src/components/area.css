@@ -1,0 +1,7 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 400px;
+    background-color: cornflowerblue;
+}

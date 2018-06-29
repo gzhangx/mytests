@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MyLink from './components/myLink';
+import MyArea from './components/area';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to drive</h1>
 
         </header>
+          <MyArea/>
         <p className="App-intro">
             <MyLink text={'forward'}/><br/>
             <MyLink text={'left'}/>
