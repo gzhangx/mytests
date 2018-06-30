@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import request from 'superagent';
+import React from 'react';
 import ReactCursorPosition from 'react-cursor-position';
 import get from 'lodash/get';
 import './area.css';
+import gpio from '../api/gpio';
 
 function YourComponentOne(props) {
     const centerX = 200;
@@ -11,6 +11,7 @@ function YourComponentOne(props) {
     const y = get(props,'position.y')- centerY;
     const lr = x > 50? 'right' : x<-50?'left':'center';
     const fs = y > 50? 'foward' :'stop';
+    gpio.steer(x+ centerX);
   return <div class="flex-container">
           <span margin="5">{get(props,'position.x')}</span>
           <span margin="5">{get(props,'position.y')}</span>

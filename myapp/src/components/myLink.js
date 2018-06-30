@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import request from 'superagent';
+import React from 'react';
+import gpio from '../api/gpio';
 
 
 export default function MyLink(props) {
     return <button onClick={()=>{
         console.log(props.text)
-        return request.get(`http://192.168.168.100:8080/onoff/${props.text}`).then(res=>{
-           console.log(res);
-        });
+        return gpio.drive(props.text);
     }
     }>{props.text}</button>
 }
