@@ -11,7 +11,7 @@ function YourComponentOne(props) {
     const x = get(props,'position.x')- centerX;
     const y = get(props,'position.y')- centerY;
     const lr = x > 50? 'right' : x<-50?'left':'center';
-    const fs = y > 50? 'foward' :'stop';
+    const fs = y <0 ? 'forward' :'stop';
     gpio.steer(x+ steeringValCenter);
     gpio.drive(fs);
   return <div class="flex-container">
