@@ -33,7 +33,6 @@ directory:`${__dirname}/public`,
 default:'index.html'
 }));
 server.listen(8080, ()=>{});
-
-
+console.log('server on 8080');
 
 

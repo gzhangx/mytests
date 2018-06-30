@@ -24,7 +24,6 @@ function createOutGpio(who) {
     }
 
     return {
-        gpio: created,
         gon: () => onoff(rpio.LOW),
         goff: () => onoff(rpio.HIGH),
         end: () => rpio.reset(who)
