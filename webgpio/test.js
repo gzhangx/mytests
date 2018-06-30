@@ -18,5 +18,5 @@ const pwmp = 12;
 rpio.open(pwmp, rpio.PWM);
 rpio.pwmSetClockDivider(256);
 rpio.pwmSetRange(pwmp, 1024);
-rpio.pwmSetData(pwmp, 0);
+rpio.pwmSetData(pwmp, 100);
 
