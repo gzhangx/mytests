@@ -1,7 +1,7 @@
 const restify = require('restify');
 const ips = require('./net');
 const server = restify.createServer();
-const {states, setState} = require('./drive');
+const {states, setState, setSteering} = require('./drive');
 console.log(ips.getIPs());
 
 server.use(restify.plugins.queryParser());
@@ -26,6 +26,13 @@ server.get('/version', (req, res, next)=>{
 server.get('/onoff/:what', (req,res,next)=>{
   res.send(req.params);
   setState(req.params.what);
+});
+
+server.get('/steer/:what', (req,res,next)=>{
+    const v = req.params.what;
+    console.log(`steerin ${v}`);
+    res.send(req.params);
+    setSteering(req.params.what);
 });
 
 server.get('/*', restify.plugins.serveStatic({

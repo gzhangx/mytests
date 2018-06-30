@@ -7,8 +7,9 @@ if (process.env.NODE_ENV === 'dev'){
 
 const gon = require('./ngpio');
 
-const gleft = gon.createOutGpio(5);
-const gright = gon.createOutGpio(6);
+const driveF = gon.createOutGpio(5);
+const steering = gon.createPWM();
+//const gright = gon.createOutGpio(6);
 //g5.gon();
 
 //setTimeout(()=>{
@@ -24,30 +25,32 @@ const states = {
 };
 
 let curState = states.stop;
-function drive() {
+let curDir = 100;
 
-  setTimeout(drive, 1000);
-  switch(curState) {
-      case states.stop:
-          gleft.goff();
-          gright.goff();
-          break;
-      case states.left:
-          gleft.gon();
-          gright.goff();
-          break;
-      case states.right:
-          gright.gon();
-          gleft.goff();
-          break;
-      case states.forward:
-          gright.gon();
-          gleft.gon();
-          break;
-  }
+steering.setPwm(curDir);
+function drive() {
+    steering.setPwm(curDir);
+    setTimeout(drive, 100);
+    switch (curState) {
+        case states.stop:
+            driveF.goff();
+            break;
+        case states.left:
+            gleft.gon();
+            gright.goff();
+            break;
+        case states.right:
+            gright.gon();
+            gleft.goff();
+            break;
+        case states.forward:
+            driveF.gon();
+            break;
+    }
 }
 drive();
 module.exports = {
     states,
-    setState: s => curState = s
+    setState: s => curState = s,
+    setSteering: s=>curDir = s,
 };
