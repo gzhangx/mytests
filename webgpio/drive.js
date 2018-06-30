@@ -52,5 +52,10 @@ drive();
 module.exports = {
     states,
     setState: s => curState = s,
-    setSteering: s=>curDir = s,
+    setSteering: s=>{
+        const v = parseInt(s);
+        if (!isNaN(v)) {
+            curDir = v;
+        }
+    }
 };
