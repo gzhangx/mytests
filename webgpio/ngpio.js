@@ -11,7 +11,7 @@ function createPWM(pwmp=12) {
     rpio.pwmSetClockDivider(256);
     rpio.pwmSetRange(pwmp, 1024);
     return {
-        setPwm: v => rpio.pwmSetData(pwmp, 100),
+        setPwm: v => rpio.pwmSetData(pwmp, v),
         end: ()=>rpio.reset(pwmp)
     };
 }
