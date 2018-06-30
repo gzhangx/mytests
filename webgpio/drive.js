@@ -57,5 +57,7 @@ module.exports = {
         if (!isNaN(v)) {
             curDir = v;
         }
+        if (curDir < 50) curDir = 50;
+        if (curDir > 150) curDir = 150;
     }
 };
