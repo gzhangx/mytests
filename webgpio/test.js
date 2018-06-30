@@ -1,8 +1,9 @@
+/*
 const rpio = require('rpio');
 rpio.init({
-        gpiomem: false,          /* Use /dev/gpiomem */
-        mapping: 'gpio',    /* Use the P1-P40 numbering scheme gpio or physical */
-        mock: undefined,        /* Emulate specific hardware in mock mode */
+        gpiomem: false,
+        mapping: 'gpio',
+        mock: undefined,
 });
 console.log('inited');
 const p = 13;
@@ -20,3 +21,8 @@ rpio.pwmSetClockDivider(256);
 rpio.pwmSetRange(pwmp, 1024);
 rpio.pwmSetData(pwmp, 100);
 
+*/
+
+const ng = require('./ngpio');
+const p = ng.createPWM();
+p.setPwm(100);

@@ -1,20 +1,37 @@
-const Gpio = require('onoff').Gpio;
+const rpio = require('rpio');
+rpio.init({
+    gpiomem: false,          /* Use /dev/gpiomem */
+    mapping: 'gpio',    /* Use the P1-P40 numbering scheme gpio or physical */
+    mock: undefined,        /* Emulate specific hardware in mock mode */
+});
+console.log('rpio inited');
 
+function createPWM(pwmp=12) {
+    rpio.open(pwmp, rpio.PWM);
+    rpio.pwmSetClockDivider(256);
+    rpio.pwmSetRange(pwmp, 1024);
+    return {
+        setPwm: v => rpio.pwmSetData(pwmp, 100),
+        end: ()=>rpio.reset(pwmp)
+    };
+}
 
-function createOutGpio(who){
-  const created = new Gpio(who, 'out');
-  function onoff(v){
-    created.writeSync(v);
-  }
-  onoff(1);
-  return {
-    gpio: created,
-    gon: ()=>onoff(0),
-    goff: ()=>onoff(1),
-    end: ()=>created.unexport()
-  }
+function createOutGpio(who) {
+    rpio.open(who, rpio.OUTPUT, rpio.HIGH);
+
+    function onoff(v) {
+        rpio.write(who, v);
+    }
+
+    return {
+        gpio: created,
+        gon: () => onoff(rpio.LOW),
+        goff: () => onoff(rpio.HIGH),
+        end: () => rpio.reset(who)
+    }
 }
 
 module.exports= {
-  createOutGpio
-}
+    createOutGpio,
+    createPWM
+};
