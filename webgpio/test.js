@@ -25,4 +25,7 @@ rpio.pwmSetData(pwmp, 100);
 
 const ng = require('./ngpio');
 const p = ng.createPWM();
-p.setPwm(100);
+p.setPwm(110);
+
+//const p6 = ng.createOutGpio(13);
+//p6.goff();
