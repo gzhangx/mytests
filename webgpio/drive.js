@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'dev'){
 const gon = require('./ngpio');
 
 const driveLeft = gon.createOutGpio(5);
+const driveRight = gon.createOutGpio(6);
 //const steering = gon.createPWM();
 
 //let curDir = 100;
@@ -64,6 +65,7 @@ async function drive() {
     while(true) {
         await sleep(1);
         await onDrive(driveLeft, -1);
+        await onDrive(driveRight, 1);
     }
 }
 drive();
