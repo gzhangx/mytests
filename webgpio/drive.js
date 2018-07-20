@@ -7,53 +7,63 @@ if (process.env.NODE_ENV === 'dev'){
 
 const gon = require('./ngpio');
 
-const driveF = gon.createOutGpio(5);
-const steering = gon.createPWM();
-//const gright = gon.createOutGpio(6);
-//g5.gon();
+const driveLeft = gon.createOutGpio(5);
+//const steering = gon.createPWM();
 
-//setTimeout(()=>{
-//  g5.goff();
-//  g5.end();
-//}, 5000);
+//let curDir = 100;
+//steering.setPwm(curDir);
+//steering.setPwm(curDir);
 
-const states = {
-  forward: 'forward',
-    left:'left',
-    right:'right',
-    stop: 'stop'
-};
+function sleep(ms) {
+    if (ms < 0) {
+        return Promise.resolve();
+    }
+    return new Promise(resolve=>{
+        setTimeout(resolve, ms);
+    });
+}
 
-let curState = states.stop;
-let curDir = 100;
+const driveParam = {};
+function calcStep(v, def = 0) {
+    const step = 10;
+    const ret = parseInt(driveParam.y/step);
+    if (isNaN(ret)) return def;
+    return ret;
+}
+async function onDrive(driver, sign = 1) {
 
-steering.setPwm(curDir);
-function drive() {
-    steering.setPwm(curDir);
-    setTimeout(drive, 100);
-    switch (curState) {
-        case states.stop:
-            driveF.gon();
-            break;
-        case states.left:
-            break;
-        case states.right:
-            break;
-        case states.forward:
-            driveF.goff();
-            break;
+    const maxY = 10;
+    const maxX = 10;
+    const steppedX = calcStep(driveParam.x) * sign;
+    const steppedY = calcStep(driveParam.y, maxY + 1);
+    console.log(`${sign} stepped ${steppedX}/${steppedY}`);
+    if(steppedY > maxY || steppedX > maxX) {
+        console.log(`off for ${sign}`);
+        driver.goff();
+        return;
+    }
+    if (steppedX <= 0 && steppedY <= 0) {
+        console.log(`on for ${sign}`);
+        driver.gon();
+        return;
+    }
+
+    const xSleep = steppedX < 0? 0 : steppedX;
+    driver.gon();
+    await sleep(maxY - steppedY - xSleep);
+    driver.goff();
+    await sleep(steppedY + xSleep);
+}
+async function drive() {
+    while(true) {
+        await sleep(1);
+        await onDrive(driveLeft, -1);
     }
 }
 drive();
 module.exports = {
-    states,
-    setState: s => curState = s,
-    setSteering: s=>{
-        const v = parseInt(s);
-        if (!isNaN(v)) {
-            curDir = v;
-        }
-        if (curDir < 50) curDir = 50;
-        if (curDir > 150) curDir = 150;
+    setSteering: prm=>{
+        driveParam.x = parseFloat(prm.x);
+        driveParam.y = parseFloat(prm.y);
     }
 };

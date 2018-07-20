@@ -8,8 +8,8 @@ function drive(v) {
     });
 }
 
-function steer(v) {
-    return request.get(`${baseUrl}/steer/${v}`).then(res=>{
+function steer(x,y) {
+    return request.get(`${baseUrl}/steer/${x}/${y}`).then(res=>{
         console.log(res);
     });
 }
