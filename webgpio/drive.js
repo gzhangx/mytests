@@ -30,20 +30,26 @@ function calcStep(v, def = 0) {
     if (isNaN(ret)) return def;
     return ret;
 }
+
+const oldStepVal = {};
 async function onDrive(driver, sign = 1) {
 
     const maxY = 10;
     const maxX = 10;
     const steppedX = calcStep(driveParam.x) * sign;
     const steppedY = calcStep(driveParam.y, maxY + 1);
-    console.log(`${sign} stepped ${steppedX}/${steppedY}`);
+
+    const changed = oldStepVal.x != steppedX || oldStepVal.y != steppedY;
+    oldStepVal.x = steppedX;
+    oldStepVal.y = steppedY;
+    if (changed) console.log(`${sign} stepped ${steppedX}/${steppedY}`);
     if(steppedY > maxY || steppedX > maxX) {
-        console.log(`off for ${sign}`);
+        if (changed) console.log(`off for ${sign}`);
         driver.goff();
         return;
     }
     if (steppedX <= 0 && steppedY <= 0) {
-        console.log(`on for ${sign}`);
+        if (changed) console.log(`on for ${sign}`);
         driver.gon();
         return;
     }
