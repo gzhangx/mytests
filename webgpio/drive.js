@@ -26,7 +26,7 @@ function sleep(ms) {
 const driveParam = {};
 function calcStep(v, def = 0) {
     const step = 10;
-    const ret = parseInt(driveParam.y/step);
+    const ret = parseInt(v/step);
     if (isNaN(ret)) return def;
     return ret;
 }
