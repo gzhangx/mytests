@@ -33,18 +33,14 @@ function drive() {
     setTimeout(drive, 100);
     switch (curState) {
         case states.stop:
-            driveF.goff();
+            driveF.gon();
             break;
         case states.left:
-            gleft.gon();
-            gright.goff();
             break;
         case states.right:
-            gright.gon();
-            gleft.goff();
             break;
         case states.forward:
-            driveF.gon();
+            driveF.goff();
             break;
     }
 }
