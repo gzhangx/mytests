@@ -46,7 +46,7 @@ async function onDrive(driver, sign = 1) {
     oldStepVal.x = steppedX;
     oldStepVal.y = steppedY;
 
-    if(steppedY > maxY || steppedX > maxX) {
+    if(steppedY >= maxY || steppedX >= maxX) {
         if (changed) console.log(`off for ${sign}`);
         driver.goff();
         return;
@@ -59,9 +59,16 @@ async function onDrive(driver, sign = 1) {
 
     const xSleep = steppedX < 0? 0 : steppedX;
     driver.gon();
-    await sleep(maxY - steppedY - xSleep);
+    const onSleep = maxY - steppedY - xSleep;
+    await sleep(onSleep);
     driver.goff();
-    await sleep(steppedY + xSleep);
+    const offSleep = steppedY + xSleep;
+    await sleep(offSleep);
+    if (onSleep != oldStepVal.oldStepVal || offSleep != oldStepVal.offSleep) {
+        console.log(`onSleep ${onSleep} offSleep ${offSleep}`);
+        oldStepVal.onSleep = onSleep;
+        oldStepVal.offSleep = offSleep;
+    }
 }
 async function drive() {
     while(true) {
