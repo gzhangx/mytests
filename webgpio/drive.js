@@ -32,7 +32,7 @@ function calcStep(v, def = 0) {
     return ret;
 }
 
-const oldStepVal = {};
+const oldStepValLst = {'1':{},'-1':{}};
 async function onDrive(driver, sign = 1) {
 
     const maxY = 10;
@@ -40,10 +40,12 @@ async function onDrive(driver, sign = 1) {
     const steppedX = calcStep(driveParam.x) * sign;
     const steppedY = calcStep(driveParam.y, maxY + 1);
 
+    const oldStepVal = oldStepValLst[sign.toString()];
     const changed = oldStepVal.x != steppedX || oldStepVal.y != steppedY;
+    if (changed) console.log(`${sign} stepped ${steppedX}/${steppedY} old ${oldStepVal.x} ${oldStepVal.y}`);
     oldStepVal.x = steppedX;
     oldStepVal.y = steppedY;
-    if (changed) console.log(`${sign} stepped ${steppedX}/${steppedY}`);
+
     if(steppedY > maxY || steppedX > maxX) {
         if (changed) console.log(`off for ${sign}`);
         driver.goff();

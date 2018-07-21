@@ -25,7 +25,7 @@ server.get('/version', (req, res, next)=>{
 
 server.get('/steer/:x/:y', (req,res,next)=>{
     const {x,y} = req.params;
-    console.log(`steerin ${x} ${y}`);
+    //console.log(`steerin ${x} ${y}`);
     res.send(req.params);
     setSteering(req.params);
 });
