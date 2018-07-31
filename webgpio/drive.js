@@ -42,7 +42,7 @@ async function onDrive(driver, sign = 1) {
 
     const oldStepVal = oldStepValLst[sign.toString()];
     const changed = oldStepVal.x != steppedX || oldStepVal.y != steppedY;
-    if (changed) console.log(`${sign} stepped ${steppedX}/${steppedY} old ${oldStepVal.x} ${oldStepVal.y}`);
+    //if (changed) console.log(`${sign} stepped ${steppedX}/${steppedY} old ${oldStepVal.x} ${oldStepVal.y}`);
     oldStepVal.x = steppedX;
     oldStepVal.y = steppedY;
 
@@ -59,7 +59,7 @@ async function onDrive(driver, sign = 1) {
         await sleep(offSleep);
     }
     if (onSleep != oldStepVal.onSleep || offSleep != oldStepVal.offSleep) {
-        console.log(`onSleep ${onSleep} offSleep ${offSleep}`);
+        console.log(`${sign} onSleep ${onSleep} offSleep ${offSleep}`);
         oldStepVal.onSleep = onSleep;
         oldStepVal.offSleep = offSleep;
     }
