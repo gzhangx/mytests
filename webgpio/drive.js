@@ -59,7 +59,7 @@ async function onDrive(driver, sign = 1) {
         await sleep(offSleep);
     }
     if (onSleep != oldStepVal.onSleep || offSleep != oldStepVal.offSleep) {
-        console.log(`${sign} onSleep ${onSleep} offSleep ${offSleep}`);
+        //console.log(`${sign} onSleep ${onSleep} offSleep ${offSleep}`);
         oldStepVal.onSleep = onSleep;
         oldStepVal.offSleep = offSleep;
     }
