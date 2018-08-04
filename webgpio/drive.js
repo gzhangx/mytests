@@ -9,7 +9,13 @@ const gon = require('./ngpio');
 
 const driveLeft = gon.createOutGpio(5);
 const driveRight = gon.createOutGpio(6);
-const steering = gon.createPWM();
+let steering;
+try {
+    steering = gon.createPWM();
+} catch (err) {
+    console.log('Error creating pwm');
+    console.log(err);
+}
 
 let curDir = 100;
 steering.setPwm(curDir);
