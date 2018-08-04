@@ -30,7 +30,9 @@ function sleep(ms) {
     });
 }
 
-const driveParam = {};
+const driveParam = {
+    x: curDir
+};
 function calcStep(v, def = 0) {
     const step = 20;
     const ret = parseInt(v/step);
@@ -73,7 +75,7 @@ async function onDrive(driver, sign = 1) {
 async function drive() {
     while(true) {
         await sleep(1);
-        steering.setPwm(parseInt(driveParam.x));
+        steering.setPwm(parseInt(driveParam.x)+200);
         await onDrive(driveLeft, -1);
         await onDrive(driveRight, 1);
     }
