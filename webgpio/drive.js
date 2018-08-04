@@ -9,10 +9,10 @@ const gon = require('./ngpio');
 
 const driveLeft = gon.createOutGpio(5);
 const driveRight = gon.createOutGpio(6);
-//const steering = gon.createPWM();
+const steering = gon.createPWM();
 
-//let curDir = 100;
-//steering.setPwm(curDir);
+let curDir = 100;
+steering.setPwm(curDir);
 //steering.setPwm(curDir);
 
 function sleep(ms) {
@@ -67,6 +67,7 @@ async function onDrive(driver, sign = 1) {
 async function drive() {
     while(true) {
         await sleep(1);
+        steering.setPwm(driveParam.x);
         await onDrive(driveLeft, -1);
         await onDrive(driveRight, 1);
     }
