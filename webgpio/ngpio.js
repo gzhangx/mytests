@@ -11,7 +11,16 @@ function createPWM(pwmp=12) {
     rpio.pwmSetClockDivider(256);
     rpio.pwmSetRange(pwmp, 1024);
     return {
-        setPwm: v => rpio.pwmSetData(pwmp, v),
+        setPwm: vs => {
+            const v = parseInt(vs);
+            let curDir = 100;
+            if (!isNaN(v)) {
+                curDir = v;
+            }
+            if (curDir < 50) curDir = 50;
+            if (curDir > 150) curDir = 150;
+            rpio.pwmSetData(pwmp, curDir);
+            },
         end: ()=>rpio.reset(pwmp)
     };
 }
