@@ -17,7 +17,9 @@ try {
     console.log(err);
 }
 
-let curDir = 100;
+const MAXX = 200;
+const curDir = MAXX/2;
+const STEP = MAXX/10;
 steering.setPwm(curDir);
 //steering.setPwm(curDir);
 
@@ -34,7 +36,7 @@ const driveParam = {
     x: curDir
 };
 function calcStep(v, def = 0) {
-    const step = 20;
+    const step = STEP;
     const ret = parseInt(v/step);
     if (isNaN(ret)) return def;
     return ret;
