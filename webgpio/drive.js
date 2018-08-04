@@ -73,7 +73,7 @@ async function onDrive(driver, sign = 1) {
 async function drive() {
     while(true) {
         await sleep(1);
-        steering.setPwm(driveParam.x);
+        steering.setPwm(parseInt(driveParam.x));
         await onDrive(driveLeft, -1);
         await onDrive(driveRight, 1);
     }
