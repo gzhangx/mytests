@@ -23,16 +23,11 @@ server.get('/version', (req, res, next)=>{
   //res.sendRaw('test');
 });
 
-server.get('/onoff/:what', (req,res,next)=>{
-  res.send(req.params);
-  setState(req.params.what);
-});
-
-server.get('/steer/:what', (req,res,next)=>{
-    const v = req.params.what;
-    console.log(`steerin ${v}`);
+server.get('/steer/:x/:y', (req,res,next)=>{
+    const {x,y} = req.params;
+    //console.log(`steerin ${x} ${y}`);
     res.send(req.params);
-    setSteering(req.params.what);
+    setSteering(req.params);
 });
 
 server.get('/*', restify.plugins.serveStatic({
